@@ -7,6 +7,7 @@ task wrap(type: Wrapper) {
 
 task mkSrcDirs << {
     sourceSets*.groovy.srcDirs*.each { it.mkdirs() }
+    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
 }
 
 tasks.withType(Compile) {
