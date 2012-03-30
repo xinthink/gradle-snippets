@@ -1,0 +1,19 @@
+apply plugin: 'groovy'
+
+task wrap(type: Wrapper) {
+    gradleVersion = '1.0-milestone-9'
+    scriptFile = 'g'
+}
+
+task mkSrcDirs << {
+    sourceSets*.groovy.srcDirs*.each { it.mkdirs() }
+}
+
+tasks.withType(Compile) {
+    options.encoding = 'utf-8'
+}
+
+tasks.withType(GroovyCompile) {
+    options.encoding = 'utf-8'
+    groovyOptions.encoding = 'utf-8'
+}
