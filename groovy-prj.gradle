@@ -4,7 +4,7 @@ apply plugin: 'groovy'
  * Create gradle wrapper
  */
 task wrap(type: Wrapper) {
-    gradleVersion = '1.0-milestone-9'
+    gradleVersion = '1.0-rc-3'
     scriptFile = 'g'
 }
 
