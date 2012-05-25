@@ -2,7 +2,7 @@ buildscript {
     ext['githubPattern'] = 'http://cloud.github.com/downloads/[organisation]/[module]/[module]-[revision].[ext]'
     ext['snippetsRepo'] = 'https://raw.github.com/xinthink/gradle-snippets/master'
 
-    def vEcjPlugin = '1.0-Beta'
+    def vEcjPlugin = '1.0-BETA'
 
     repositories {
         mavenCentral()
@@ -15,7 +15,7 @@ buildscript {
     }
 
     dependencies {
-        classpath "xinthink:gradle-ecj:$vEcjPlugin"
+        classpath "xink.gradle:gradle-ecj:$vEcjPlugin"
     }
 }
 
