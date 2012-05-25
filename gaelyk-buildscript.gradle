@@ -11,7 +11,7 @@ buildscript {
 
         add(new org.apache.ivy.plugins.resolver.URLResolver()) {
             name = 'GitHub'
-            addArtifactPattern githubPattern
+            addArtifactPattern project.githubPattern
         }
     }
 
