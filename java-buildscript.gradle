@@ -1,7 +1,7 @@
-project.ext['githubPattern'] = 'http://cloud.github.com/downloads/[organisation]/[module]/[module]-[revision].[ext]'
-project.ext['snippetsRepo'] = 'https://raw.github.com/xinthink/gradle-snippets/master'
-
 buildscript {
+    ext['githubPattern'] = 'http://cloud.github.com/downloads/[organisation]/[module]/[module]-[revision].[ext]'
+    ext['snippetsRepo'] = 'https://raw.github.com/xinthink/gradle-snippets/master'
+
     def vEcjPlugin = '1.0-Beta'
 
     repositories {
@@ -9,7 +9,7 @@ buildscript {
 
         add(new org.apache.ivy.plugins.resolver.URLResolver()) {
             name = 'GitHub'
-            addArtifactPattern project.githubPattern
+            addArtifactPattern githubPattern
         }
     }
 
