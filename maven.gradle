@@ -1,0 +1,23 @@
+apply plugin: 'maven'
+
+task jarSrc(type: Jar) {
+    classifier = 'src'
+    baseName = "${project.name}-src"
+
+    try { from sourceSets.main.groovy.srcDirs } catch (Exception e) {}
+    try { from sourceSets.main.java.srcDirs } catch (Exception e) {}
+    try { from sourceSets.main.resources.srcDirs } catch (Exception e) {}
+}
+
+artifacts {
+    archives jarSrc
+}
+
+uploadArchives {
+    uploadDescriptor = true
+    repositories {
+        mavenDeployer {
+            repository(url: "file:///ws/repo")
+        }
+    }
+}

@@ -1,5 +1,4 @@
 apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/groovy-prj.gradle'
-apply plugin: 'maven'
 
 dependencies {
     compile gradleApi()
