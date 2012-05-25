@@ -6,6 +6,7 @@ buildscript {
 
     repositories {
         mavenCentral()
+        mavenRepo url: 'https://raw.github.com/xinthink/repo/master'
 
         add(new org.apache.ivy.plugins.resolver.URLResolver()) {
             name = 'GitHub'

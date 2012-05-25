@@ -1,7 +1,7 @@
 apply plugin: 'maven'
 
 task jarSrc(type: Jar) {
-    classifier = 'src'
+    classifier = 'sources'
     baseName = "${project.name}-src"
 
     try { from sourceSets.main.groovy.srcDirs } catch (Exception e) {}

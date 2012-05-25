@@ -45,6 +45,7 @@ tasks.withType(GroovyCompile) {
 //
 repositories {
     mavenCentral()
+    mavenRepo url: 'https://raw.github.com/xinthink/repo/master'
 }
 
 dependencies {
