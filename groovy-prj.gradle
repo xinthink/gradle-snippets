@@ -1,20 +1,28 @@
+// pure groovy project builds (java|eclipse not include)
 apply plugin: 'groovy'
 
-/*
- * Create gradle wrapper
- */
-task wrap(type: Wrapper) {
-    gradleVersion = '1.0-rc-3'
-    scriptFile = 'g'
+if (!tasks.findAll { it.name == 'wrap' } ) {
+    task wrap(type: Wrapper) {
+        description = 'Create gradle wrapper'
+        gradleVersion = '1.0-rc-3'
+        scriptFile = 'g'
+    }
 }
 
-/*
- * Create all source dirs
- */
-task mkSrcDirs << {
-    sourceSets*.java.srcDirs*.each { it.mkdirs() }
-    sourceSets*.groovy.srcDirs*.each { it.mkdirs() }
-    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+if (tasks.findAll { it.name == 'mkSrcDirs' } ) {
+    mkSrcDirs << {
+        sourceSets*.groovy.srcDirs*.each { it.mkdirs() }
+    }
+}
+else {
+    task mkSrcDirs {
+        description = 'Create all source dirs'
+        doLast {
+            sourceSets*.java.srcDirs*.each { it.mkdirs() }
+            sourceSets*.groovy.srcDirs*.each { it.mkdirs() }
+            sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+        }
+    }
 }
 
 // -------------------------------------

@@ -1,0 +1,29 @@
+buildscript {
+    apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/java-buildscript.gradle'
+
+    def vEcjPlugin = '1.0-Beta'
+    def vGaePlugin = '0.6.2'
+    def vGaelykPlugin = '0.3.1'
+    //def vCoberturaPlugin = '1.2'
+
+    repositories {
+        mavenCentral()
+
+        add(new org.apache.ivy.plugins.resolver.URLResolver()) {
+            name = 'GitHub'
+            addArtifactPattern githubPattern
+        }
+    }
+
+    dependencies {
+        classpath "bmuschko:gradle-gae-plugin:$vGaePlugin"
+        classpath "bmuschko:gradle-gaelyk-plugin:$vGaelykPlugin"
+    }
+
+    // cobertura
+    //def coberturaPluginRepo = 'https://raw.github.com/valkolovos/gradle_cobertura/master'
+    //apply from: "$coberturaPluginRepo/repo/gradle_cobertura/gradle_cobertura/$vCoberturaPlugin/coberturainit.gradle"
+}
+
+apply plugin: org.gradle.api.plugins.gae.GaePlugin
+apply plugin: org.gradle.api.plugins.gaelyk.GaelykPlugin

@@ -1,0 +1,29 @@
+ext['githubPattern'] = 'http://cloud.github.com/downloads/[organisation]/[module]/[module]-[revision].[ext]'
+ext['snippetsRepo'] = 'https://raw.github.com/xinthink/gradle-snippets/master'
+
+buildscript {
+    def vEcjPlugin = '1.0-Beta'
+
+    repositories {
+        mavenCentral()
+
+        add(new org.apache.ivy.plugins.resolver.URLResolver()) {
+            name = 'GitHub'
+            addArtifactPattern githubPattern
+        }
+    }
+
+    dependencies {
+        classpath "xinthink:gradle-ecj:$vEcjPlugin"
+    }
+}
+
+if (!tasks.findAll { it.name == 'wrap' } ) {
+    task wrap(type: Wrapper) {
+        description = 'Create gradle wrapper'
+        gradleVersion = '1.0-rc-3'
+        scriptFile = 'g'
+    }
+}
+
+apply plugin: xink.gradle.ecj.EcjPlugin

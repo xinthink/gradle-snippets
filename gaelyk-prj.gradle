@@ -1,0 +1,76 @@
+apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/java-prj.gradle'
+apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/groovy-prj.gradle'
+apply plugin: 'war'
+
+webAppDirName = 'webapp'
+downloadSdk = false // download GAE SDK to build dir
+
+repositories {
+    add(new org.apache.ivy.plugins.resolver.URLResolver()) {
+        name = 'GitHub'
+        addArtifactPattern githubPattern
+    }
+}
+
+dependencies {
+    def gaeSdkVersion = '1.6.5'
+    def gaelykVersion = '1.1'
+
+    gaeSdk "com.google.appengine:appengine-java-sdk:$gaeSdkVersion"
+
+    compile (
+        "com.google.appengine:appengine-api-1.0-sdk:$gaeSdkVersion",
+        "com.google.appengine:appengine-api-labs:$gaeSdkVersion",
+        'javax.servlet:servlet-api:2.5',
+    )
+
+    runtime (
+        "glaforge:gaelyk:$gaelykVersion",
+    )
+}
+
+sourceSets {
+    main {
+        java.srcDirs = []
+        groovy.srcDirs 'src/main/domain', 'src/main/service'
+        resources.srcDirs = []
+        output.classesDir = "$webAppDirName/WEB-INF/classes"
+    }
+
+    test.java.srcDirs = []
+    test.resources.srcDirs = []
+}
+
+gae {
+    warDir = file webAppDirName
+    disableUpdateCheck = true
+    appcfg {
+        email = gaeEmail
+    }
+}
+
+mkSrcDirs << {
+    mkdir webAppDirName
+}
+
+//cobertura {
+//    coverageDirs = [ sourceSets.main.output.classesDir ]
+//    coverageSourceDirs = [
+//        sourceSets.main.java.srcDirs,
+//        sourceSets.main.groovy.srcDirs
+//    ]
+//}
+
+task deployLib(type: Sync) {
+    description = 'deploy runtime dependencies to webAppDir'
+    from configurations.runtime, configurations.compile
+    into "$webAppDirName/WEB-INF/lib"
+    exclude 'servlet-api-*.jar'
+}
+gaeRun.dependsOn classes, deployLib
+gaeUpload.dependsOn classes, deployLib
+
+clean << {
+    ant.delete dir: sourceSets.main.output.classesDir
+    ant.delete dir: "$webAppDirName/WEB-INF/lib"
+}
