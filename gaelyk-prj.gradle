@@ -3,7 +3,7 @@ apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/groovy-prj.g
 apply plugin: 'war'
 
 webAppDirName = 'webapp'
-downloadSdk = false // download GAE SDK to build dir
+downloadSdk = true // download GAE SDK
 
 repositories {
     add(new org.apache.ivy.plugins.resolver.URLResolver()) {
