@@ -1,5 +1,6 @@
 buildscript {
-    apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/java-buildscript.gradle'
+    ext['githubPattern'] = 'http://cloud.github.com/downloads/[organisation]/[module]/[module]-[revision].[ext]'
+    ext['snippetsRepo'] = 'https://raw.github.com/xinthink/gradle-snippets/master'
 
     def vEcjPlugin = '1.0-Beta'
     def vGaePlugin = '0.6.2'

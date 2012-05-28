@@ -1,4 +1,3 @@
-apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/java-prj.gradle'
 apply from: 'https://raw.github.com/xinthink/gradle-snippets/master/groovy-prj.gradle'
 apply plugin: 'war'
 
