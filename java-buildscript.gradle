@@ -22,7 +22,7 @@ buildscript {
 if (!tasks.findAll { it.name == 'wrap' } ) {
     task wrap(type: Wrapper) {
         description = 'Create gradle wrapper'
-        gradleVersion = '1.0-rc-3'
+        gradleVersion = '1.0'
         scriptFile = 'g'
     }
 }
