@@ -11,9 +11,9 @@ task jarSrc(type: Jar) {
 }
 
 task jarDoc(type: Jar, dependsOn: javadoc) {
-  classifier = 'javadoc'
-  baseName = "${project.name}"
-  from javadoc.destinationDir
+    classifier = 'javadoc'
+    baseName = "${project.name}"
+    from javadoc.destinationDir
 }
 
 artifacts {
@@ -22,12 +22,12 @@ artifacts {
 }
 
 uploadArchives {
-    beforeDeployment { deployment ->
-        signing.signPom(deployment)
-    }
     uploadDescriptor = true
     repositories {
         mavenDeployer {
+            beforeDeployment { deployment ->
+                signing.signPom(deployment)
+            }
             repository(url: "file:///ws/repo")
         }
     }
