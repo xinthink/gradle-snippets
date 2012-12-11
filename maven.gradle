@@ -1,19 +1,30 @@
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 task jarSrc(type: Jar) {
     classifier = 'sources'
-    baseName = "${project.name}-src"
+    baseName = "${project.name}"
 
     try { from sourceSets.main.groovy.srcDirs } catch (Exception e) {}
     try { from sourceSets.main.java.srcDirs } catch (Exception e) {}
     try { from sourceSets.main.resources.srcDirs } catch (Exception e) {}
 }
 
+task jarDoc(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  baseName = "${project.name}"
+  from javadoc.destinationDir
+}
+
 artifacts {
     archives jarSrc
+    archives jarDoc
 }
 
 uploadArchives {
+    beforeDeployment { deployment ->
+        signing.signPom(deployment)
+    }
     uploadDescriptor = true
     repositories {
         mavenDeployer {
