@@ -27,12 +27,11 @@ signing {
 
 uploadArchives {
     uploadDescriptor = true
-    repositories {
-        mavenDeployer {
-            beforeDeployment { deployment ->
-                signing.signPom(deployment)
-            }
-            repository(url: "file:///ws/repo")
+    repositories.mavenDeployer {
+        beforeDeployment { signing.signPom(it) }
+        // repository(url: "file:///ws/repo")
+        repository(url: isSnapshot ? sonatypeSnapshotRepo : sonatypeStageRepo) {
+            authentication(userName: sonatypeUsername, password: sonatypePassword)
         }
     }
 }
